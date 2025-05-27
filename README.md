@@ -1,70 +1,121 @@
-# Getting Started with Create React App
+# Open Visualization App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+> **A professional-grade web application for automated visualization and processing of ultrasonic flaw detector data.**  
+> Master's Thesis Project · National Technical University of Ukraine "Igor Sikorsky Kyiv Polytechnic Institute"
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## 📌 Project Overview
 
-### `npm start`
+**Open Visualization App** is a cross-platform web-based solution designed to streamline the processing, standardization, and graphical visualization of ultrasonic non-destructive testing (NDT) data. Unlike traditional desktop-bound inspection tools, this application leverages the flexibility of modern web technologies to support real-time analysis of A-scan and B-scan formats directly in the browser.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Developed as part of a master’s thesis in the field of Computer-Integrated Technologies and Robotics, the application aims to address major limitations of existing proprietary software — lack of interoperability, limited file format support, and insufficient accessibility.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+---
 
-### `npm test`
+## 🧠 Key Features
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- 📁 **Multi-format file support**: CSV, JSON, XML parsing with structural validation and standardization
+- 📈 **Graph generation**: Interactive real-time A-scan and B-scan visualization
+- 🔍 **Data processing algorithms**: Conversion, normalization, error checking and interpolation
+- ☁️ **Cloud-native**: Persistent cloud storage and automatic backup of datasets
+- 🧩 **Scalable architecture**: Modular design with clear separation of concerns (frontend/backend/data layer)
+- 📱 **Responsive UI**: Adaptive interface optimized for desktop and mobile devices
+- 🔐 **Multi-user collaboration**: Session-based access with secure data management
+- 📊 **Database integration**: PostgreSQL for structured storage of scan metadata and historical tracking
 
-### `npm run build`
+---
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 🏗 System Architecture
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+The system adheres to a **three-layer architectural pattern**, ensuring separation of logic and scalability:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Presentation Layer (ReactJS)
+│
+├── File Upload & Validation Module
+├── Dynamic Visualization Engine (A-scan, B-scan)
+├── UX Guided Interface & Assistants
+│
+Application Layer (Node.js + Express)
+│
+├── File Parser Services (CSVParser, JSONNormalizer, XMLDeserializer)
+├── Scan Processing Engine (DataConverter, IntegrityChecker)
+├── Cloud Upload Handlers & Auth Middleware
+│
+Data Layer (PostgreSQL / Cloud Storage)
+├── File Registry, Scan Metadata Tables
+├── Auto-backup & Versioning System
 
-### `npm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+All modules communicate via a custom RESTful API designed for high throughput, enabling real-time data flow and incremental rendering.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+---
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## 💻 Technology Stack
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+| Area             | Technology             |
+|------------------|-------------------------|
+| **Frontend**     | ReactJS, TypeScript, Chart.js, CSS Modules |
+| **Backend**      | Node.js, Express.js, Multer, REST API       |
+| **Database**     | PostgreSQL / MySQL, Sequelize ORM           |
+| **Storage**      | Cloudinary / S3 (pluggable), Local fallback |
+| **DevOps Ready** | Dockerized architecture, environment configs via `.env` |
 
-## Learn More
+---
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## 🚀 Setup & Deployment
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Clone the project and install dependencies:
 
-### Code Splitting
+```bash
+git clone https://github.com/IlyaPitukhGit/Open-Visualization-App.git
+cd Open-Visualization-App
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+# Install frontend and backend dependencies
+npm install
+cd server && npm install
 
-### Analyzing the Bundle Size
+# Run both frontend and backend in development
+npm run dev
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+🧪 Supported File Formats
+CSV Example:
 
-### Making a Progressive Web App
+For A Scan:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+Time (µs),CH1_Voltage (mV),CH2_Voltage (mV)
+0.0,-0.019722294124861584,-0.01591043359097907
+0.02,0.3566827679762247,0.28099344737298065
 
-### Advanced Configuration
+For B Scan:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+Position (mm),Time (µs),CH1_Voltage (mV),CH2_Voltage (mV)
+0,0.0,0.011965604299161586,0.012367464269675615
+0,0.02,0.30217360583247516,0.31152794960633745
 
-### Deployment
+📊 Visualization Modes
+A-scan (Amplitude over Time): Suitable for defect depth estimation
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+B-scan (Depth over Position): 2D representation with brightness-based defect mapping
 
-### `npm run build` fails to minify
+Automatic Generation: From series of A-scans into combined B-scan matrix
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Use Cases
+🏭 Industrial ultrasonic testing (welds, pipelines, structural components)
+
+🛰 Aerospace defectography (composites, fuselage panels)
+
+🏗 Construction safety analysis (bridges, metal frameworks)
+
+🎓 Academic training and simulation for NDT methods
+
+📚 Scientific & Practical Value
+This project presents the first universal web-based system for ultrasonic NDT data visualization with real-time feedback and hardware-agnostic compatibility. It aligns with modern trends of platform-independent industrial analytics.
+
+📘 Developed and defended as part of the Master's Dissertation:
+“Web application for visualization of ultrasonic flaw detector data”
+Kyiv Polytechnic Institute · Department of Non-Destructive Testing Automation
+
+👤 Author
+Ілля Пітух
+GitHub: @IlyaPitukhGit
