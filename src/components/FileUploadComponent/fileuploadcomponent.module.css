@@ -1,0 +1,43 @@
+.upload__container {
+    display: flex;
+    column-gap: 50px;
+    align-items: center;
+    margin-bottom: 50px;
+}
+.upload__input {
+    display: none;
+}
+
+.input__container {
+    display: flex;
+    column-gap: 30px;
+    align-items: center;
+}
+
+.customFileLabel,
+.upload__button {
+    display: inline-block;
+    color: #5a6acf;
+    padding: 15px 20px;
+    border-radius: 5px;
+    background-color: rgba(112, 127, 221, 0.1);
+    font-family: Poppins;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 100%; /* 157.143% */
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease 0s;
+}
+.customFileLabel:hover,
+.upload__button:hover {
+    background-color: rgba(112, 127, 221, 0.9);
+    color: white;
+}
+.fileName {
+    font-family: Poppins;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 100%; /* 157.143% */
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease 0s;
+}

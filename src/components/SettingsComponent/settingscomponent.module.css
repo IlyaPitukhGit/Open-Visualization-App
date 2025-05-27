@@ -1,0 +1,19 @@
+.settings__container {
+    display: flex;
+    column-gap: 50px;
+    margin-bottom: 40px;
+}
+.settings__label {
+    display: flex;
+    align-items: center;
+    column-gap: 15px;
+    color: #000;
+    font-family: Poppins;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 100%;
+    letter-spacing: 0.5px;
+}
+.settings__input {
+}
