@@ -28,26 +28,63 @@ Developed as part of a master’s thesis in the field of Computer-Integrated Tec
 
 ## 🏗 System Architecture
 
-The system adheres to a **three-layer architectural pattern**, ensuring separation of logic and scalability:
+The system follows a **three-layer architecture**, ensuring modularity, maintainability, and scalability.
 
-Presentation Layer (ReactJS)
-│
-├── File Upload & Validation Module
-├── Dynamic Visualization Engine (A-scan, B-scan)
-├── UX Guided Interface & Assistants
-│
-Application Layer (Node.js + Express)
-│
-├── File Parser Services (CSVParser, JSONNormalizer, XMLDeserializer)
-├── Scan Processing Engine (DataConverter, IntegrityChecker)
-├── Cloud Upload Handlers & Auth Middleware
-│
-Data Layer (PostgreSQL / Cloud Storage)
-├── File Registry, Scan Metadata Tables
-├── Auto-backup & Versioning System
+### 1. Presentation Layer (Frontend - ReactJS)
 
+Responsible for user interaction, data visualization, and input validation.
 
-All modules communicate via a custom RESTful API designed for high throughput, enabling real-time data flow and incremental rendering.
+- **File Upload & Validation Module**  
+  Ensures data structure correctness before processing.
+  
+- **Dynamic Visualization Engine**  
+  Renders real-time A-scan and B-scan charts using Canvas/Chart.js.
+  
+- **UX-Oriented Interface**  
+  Responsive UI with onboarding hints and adaptive layout for desktop/mobile.
+
+---
+
+### 2. Application Layer (Backend - Node.js + Express)
+
+Handles business logic, file parsing, data transformation, and communication with storage.
+
+- **File Parser Services**
+  - `CSVParser` – handles custom column mappings and format validation
+  - `JSONNormalizer` – flattens nested structures and validates required keys
+  - `XMLDeserializer` – parses XML and maps tags to standard object format
+
+- **Scan Processing Engine**
+  - `DataConverter` – transforms raw arrays into standardized formats
+  - `IntegrityChecker` – detects anomalies, duplicates, and missing values
+
+- **Middleware**
+  - Authentication / session handling
+  - Cloud upload controller (S3-compatible)
+
+---
+
+### 3. Data Layer (PostgreSQL + Cloud Storage)
+
+Provides persistent storage and structured access to data and file metadata.
+
+- **Relational Database (PostgreSQL)**
+  - Tables for user sessions, scan metadata, file references
+  - Indexing and historical version tracking
+
+- **Cloud File Storage**
+  - Supports Amazon S3, Cloudinary, or local fallback
+  - Automatic backup and restore capabilities
+
+---
+
+### 🔐 Key Architectural Highlights
+
+- Fully **modular system** with loose coupling between layers
+- **RESTful API** for seamless communication
+- Stream-based file processing for large datasets
+- Adaptable to new formats and future scan types (C-scan support planned)
+- Cloud-agnostic deployment (Docker-ready)
 
 ---
 
@@ -67,7 +104,7 @@ All modules communicate via a custom RESTful API designed for high throughput, e
 
 Clone the project and install dependencies:
 
-```bash
+
 git clone https://github.com/IlyaPitukhGit/Open-Visualization-App.git
 cd Open-Visualization-App
 
@@ -77,6 +114,8 @@ cd server && npm install
 
 # Run both frontend and backend in development
 npm run dev
+
+---
 
 🧪 Supported File Formats
 CSV Example:

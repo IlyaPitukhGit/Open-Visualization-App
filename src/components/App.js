@@ -6,20 +6,25 @@ import SettingsComponent from "./SettingsComponent/SettingsComponent";
 import VisualizationAComponent from "./VisualizationComponent/VisualizationAComponent";
 import VisualizationBComponent from "./VisualizationComponent/VisualizationBComponents";
 import Aside from "./Aside/Aside";
+import Menu from "./Menu/Menu";
 
 function App() {
     const [fileData, setFileData] = useState(null);
     const [scanType, setScanType] = useState("A-scan");
+    const [isAsideOpen, setIsAsideOpen] = useState(false);
+
+    const toggleAside = () => setIsAsideOpen(prev => !prev);
 
     return (
         <div className="app-container">
-            <Aside />
+            <Aside isOpen={isAsideOpen} closeMenu={() => setIsAsideOpen(false)} />
             <main className="main">
                 <header className="header">
                     <div className="header__container">
                         <h1 className="header__title">
                             Ultrasonic NDT Scanning
                         </h1>
+                        <Menu active={isAsideOpen} toggleMenu={toggleAside} />
                     </div>
                 </header>
                 <div className="main__container">

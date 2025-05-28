@@ -1,9 +1,28 @@
 .title {
     color: #000;
     font-family: Poppins;
-    font-size: 20px;
+    font-size: 1.25rem;
     font-style: normal;
     font-weight: 500;
     line-height: 140%;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.0313rem;
+}
+
+
+.plot__wrapper {
+    width: 100%;
+    max-width: 100%;
+    height: 400px;
+}
+
+@media (max-width: 768px) {
+    .plot__wrapper {
+        height: 300px;
+    }
+}
+
+@media (max-width: 480px) {
+    .plot__wrapper {
+        height: 250px;
+    }
 }

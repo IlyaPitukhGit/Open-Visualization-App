@@ -1,8 +1,8 @@
 import s from "./aside.module.css";
 
-function Aside() {
+function Aside({ isOpen, closeMenu }) {
     return (
-        <aside className={s.aside}>
+        <aside className={`${s.aside} ${isOpen ? s.open : ""}`}>
             <div className={s.logo__container}>
                 <a href="" className={s.logo}>
                     Open Visualization App
