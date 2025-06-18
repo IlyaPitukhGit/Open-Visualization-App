@@ -1,40 +1,39 @@
 import React, { useEffect, useState } from "react";
 import Plot from "react-plotly.js";
 import s from "./visualizationcomponent.module.css";
+import useWindowDimensions from "../../hooks/useWindowDimensions";
 
 const VisualizationBComponent = ({ data }) => {
 
+    const { width } = useWindowDimensions();
+    const isMobile = width <= 768;
+
     const [colorBarPosition, setColorBarPosition] = useState({
-        orientation: "v",  // вертикальна шкала праворуч
+        orientation: "v",
         x: 1.05,
         y: 0.5,
     });
 
     useEffect(() => {
-        const updateColorbar = () => {
-            const isMobile = window.innerWidth <= 768;
-            setColorBarPosition(isMobile
+        setColorBarPosition(
+            isMobile
                 ? {
                       x: 0.5,
                       y: -0.25,
                       xanchor: "center",
                       len: 0.4,
                       thickness: 15,
-                      orientation: "h"
+                      orientation: "h",
                   }
                 : {
                       x: 1.05,
                       y: 0.5,
                       len: 1,
                       thickness: 15,
-                  });
-        };
-    
-        updateColorbar();
-        window.addEventListener("resize", updateColorbar);
-    
-        return () => window.removeEventListener("resize", updateColorbar);
-    }, []);
+                      orientation: "v",
+                  }
+        );
+    }, [isMobile]);
     
 
     if (!data)
@@ -60,16 +59,32 @@ const VisualizationBComponent = ({ data }) => {
             len: colorBarPosition.len,
             thickness: colorBarPosition.thickness,
             xanchor: colorBarPosition.xanchor || "left",
+            orientation: colorBarPosition.orientation,
         },
                         },
             ]}
             layout={{
-                title: "Теплова карта B-скану",
-                    xaxis: { title: "Позиція (мм)" },
-                    yaxis: { title: "Час (µs)" },
-                    margin: { t: 40, b: 40 },
-                    autosize: true,
-                    responsive: true,
+                title: {
+                    text: "Теплова карта B-скану",
+                    font: { size: isMobile ? 14 : 16 },
+                },
+                xaxis: {
+                    title: {
+                        text: "Позиція (мм)",
+                        font: { size: isMobile ? 12 : 14 },
+                    },
+                    tickfont: { size: isMobile ? 10 : 12 },
+                },
+                yaxis: {
+                    title: {
+                        text: "Час (µs)",
+                        font: { size: isMobile ? 12 : 14 },
+                    },
+                    tickfont: { size: isMobile ? 10 : 12 },
+                },
+                margin: { t: 40, b: 40 },
+                autosize: true,
+                responsive: true,
             }}
         />
         </div>
