@@ -82,7 +82,10 @@ const VisualizationBComponent = ({ data }) => {
                     },
                     tickfont: { size: isMobile ? 10 : 12 },
                 },
-                margin: { t: 40, b: 40 },
+                margin:
+                    colorBarPosition.orientation === "h"
+                        ? { t: 40, b: 80 }
+                        : { t: 40, b: 40 },
                 autosize: true,
                 responsive: true,
             }}
