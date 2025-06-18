@@ -50,19 +50,12 @@ const VisualizationBComponent = ({ data }) => {
                     data={[
                         {
                             z: intensities,
-        x: positions,
-        type: "heatmap",
-        colorscale: "Viridis",
-        colorbar: {
-            x: colorBarPosition.x,
-            y: colorBarPosition.y,
-            len: colorBarPosition.len,
-            thickness: colorBarPosition.thickness,
-            xanchor: colorBarPosition.xanchor || "left",
-            orientation: colorBarPosition.orientation,
-        },
+                            x: positions,
+                            type: "heatmap",
+                            colorscale: "Viridis",
+                            coloraxis: "coloraxis",
                         },
-            ]}
+                    ]}
             layout={{
                 title: {
                     text: "Теплова карта B-скану",
@@ -81,6 +74,16 @@ const VisualizationBComponent = ({ data }) => {
                         font: { size: isMobile ? 12 : 14 },
                     },
                     tickfont: { size: isMobile ? 10 : 12 },
+                },
+                coloraxis: {
+                    colorbar: {
+                        x: colorBarPosition.x,
+                        y: colorBarPosition.y,
+                        len: colorBarPosition.len,
+                        thickness: colorBarPosition.thickness,
+                        orientation: colorBarPosition.orientation,
+                        xanchor: colorBarPosition.xanchor || "left",
+                    },
                 },
                 margin:
                     colorBarPosition.orientation === "h"
