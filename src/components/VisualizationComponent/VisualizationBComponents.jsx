@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Plot from "react-plotly.js";
 import s from "./visualizationcomponent.module.css";
 import useWindowDimensions from "../../hooks/useWindowDimensions";
@@ -8,32 +8,13 @@ const VisualizationBComponent = ({ data }) => {
     const { width } = useWindowDimensions();
     const isMobile = width <= 768;
 
-    const [colorBarPosition, setColorBarPosition] = useState({
-        orientation: "v",
+    const colorBarPosition = {
         x: 1.05,
         y: 0.5,
-    });
-
-    useEffect(() => {
-        setColorBarPosition(
-            isMobile
-                ? {
-                      x: 0.5,
-                      y: -0.25,
-                      xanchor: "center",
-                      len: 0.4,
-                      thickness: 15,
-                      orientation: "h",
-                  }
-                : {
-                      x: 1.05,
-                      y: 0.5,
-                      len: 1,
-                      thickness: 15,
-                      orientation: "v",
-                  }
-        );
-    }, [isMobile]);
+        len: 1,
+        thickness: 15,
+        orientation: "v",
+    };
     
 
     if (!data)
@@ -85,10 +66,7 @@ const VisualizationBComponent = ({ data }) => {
                         xanchor: colorBarPosition.xanchor || "left",
                     },
                 },
-                margin:
-                    colorBarPosition.orientation === "h"
-                        ? { t: 40, b: 80 }
-                        : { t: 40, b: 40 },
+                margin: { t: 40, b: 40 },
                 autosize: true,
                 responsive: true,
             }}
