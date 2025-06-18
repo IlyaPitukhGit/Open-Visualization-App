@@ -1,33 +1,30 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Plot from "react-plotly.js";
-import { useState } from "react";
 import s from "./visualizationcomponent.module.css";
+import useWindowDimensions from "../../hooks/useWindowDimensions";
 
 const VisualizationAComponent = ({ data }) => {
+    const { width } = useWindowDimensions();
+    const isMobile = width <= 768;
+
     const [legendPosition, setLegendPosition] = useState({ orientation: "v", x: 1.05, y: 1 });
 
     useEffect(() => {
-        const updateLegend = () => {
-            const isMobile = window.innerWidth <= 768;
-            setLegendPosition(isMobile
+        setLegendPosition(
+            isMobile
                 ? {
                       orientation: "h",
                       x: 0.5,
                       y: -0.3,
-                      xanchor: "center"
+                      xanchor: "center",
                   }
                 : {
                       orientation: "v",
                       x: 1.05,
-                      y: 1
-                  });
-        };
-    
-        updateLegend(); // одразу встановити
-        window.addEventListener("resize", updateLegend);
-    
-        return () => window.removeEventListener("resize", updateLegend);
-    }, []);
+                      y: 1,
+                  }
+        );
+    }, [isMobile]);
     
 
 
@@ -63,12 +60,27 @@ const VisualizationAComponent = ({ data }) => {
                             },
                         ]}
                         layout={{
-                            title: "Візуалізація A-скану",
-                            xaxis: { title: "Час (µs)" },
-                            yaxis: { title: "Напруга (mV)" },
+                            title: {
+                                text: "Візуалізація A-скану",
+                                font: { size: isMobile ? 14 : 16 },
+                            },
+                            xaxis: {
+                                title: {
+                                    text: "Час (µs)",
+                                    font: { size: isMobile ? 12 : 14 },
+                                },
+                                tickfont: { size: isMobile ? 10 : 12 },
+                            },
+                            yaxis: {
+                                title: {
+                                    text: "Напруга (mV)",
+                                    font: { size: isMobile ? 12 : 14 },
+                                },
+                                tickfont: { size: isMobile ? 10 : 12 },
+                            },
                             legend: legendPosition,
                             margin: legendPosition.orientation === "h"
-                                ? { t: 40, b: 80 }  // більше місця знизу
+                                ? { t: 40, b: 80 }
                                 : { t: 40, b: 40 },
                             autosize: true,
                             responsive: true,
